@@ -17,13 +17,13 @@ function App() {
     <BrowserRouter>
       <div className="flex h-full">
         <SideNav />
-        <div>
+        <div className="w-full">
           <Routes>
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="employee" element={<Employee />} />
-            <Route path="product" element={<Product />} />
-            <Route path="vendor" element={<Vendor />} />
-            <Route path="order" element={<Order />} />
+            <Route path="/employee" element={<Employee />} />
+            <Route path="/order" element={<Order />} />
+            <Route path="/product" element={<Product />} />
+            <Route path="/vendor" element={<Vendor />} />
           </Routes>
         </div>
       </div>
