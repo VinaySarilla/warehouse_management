@@ -1,21 +1,21 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 export default function SideNav({ children }) {
-  useEffect(() => {
-    console.log(children);
-  }, []);
+  const [loggedin, setLoggedin] = useState(false);
 
   const location = useLocation();
+  useEffect(() => {
+    if (location.pathname !== "/") {
+      setLoggedin(true);
+    }
+  }, []);
 
-  const changeLocation = () => {
-    console.log(location);
-  };
-  return (
-    <div className="w-40 bg-blue-50">
-      <div className="flex flex-col min-h-screen gap-4 mx-2 my-10">
+  return loggedin ? (
+    <div className="w-48 bg-blue-50">
+      <div className="flex flex-col min-h-screen gap-4 mx-3 my-10">
         <div
-          className={`flex justify-between p-2 text-center rounded-md ${
+          className={`flex justify-between p-3 text-center rounded-md ${
             location.pathname.includes("dashboard")
               ? `bg-blue-700 text-white`
               : `text-slate-700 bg-blue-100`
@@ -29,7 +29,7 @@ export default function SideNav({ children }) {
           />
         </div>
         <div
-          className={`flex justify-between p-2 text-center rounded-md ${
+          className={`flex justify-between p-3 text-center rounded-md ${
             location.pathname.includes("vendor")
               ? `bg-blue-700 text-white`
               : `text-slate-700 bg-blue-100`
@@ -43,7 +43,7 @@ export default function SideNav({ children }) {
           />
         </div>
         <div
-          className={`flex justify-between p-2 text-center rounded-md ${
+          className={`flex justify-between p-3 text-center rounded-md ${
             location.pathname.includes("order")
               ? `bg-blue-700 text-white`
               : `text-slate-700 bg-blue-100`
@@ -58,7 +58,7 @@ export default function SideNav({ children }) {
         </div>
 
         <div
-          className={`flex justify-between p-2 text-center rounded-md ${
+          className={`flex justify-between p-3 text-center rounded-md ${
             location.pathname.includes("employee")
               ? `bg-blue-700 text-white`
               : `text-slate-700 bg-blue-100`
@@ -73,7 +73,7 @@ export default function SideNav({ children }) {
         </div>
 
         <div
-          className={`flex justify-between p-2 text-center rounded-md ${
+          className={`flex justify-between p-3 text-center rounded-md ${
             location.pathname.includes("product")
               ? `bg-blue-700 text-white`
               : `text-slate-700 bg-blue-100`
@@ -86,7 +86,32 @@ export default function SideNav({ children }) {
             width="25px"
           />
         </div>
+
+        <div
+          className={`flex justify-between p-3 text-center rounded-md ${
+            location.pathname.includes("logout")
+              ? `bg-blue-700 text-white`
+              : `text-slate-700 bg-blue-100`
+          }`}
+        >
+          <Link
+            to="/"
+            onClick={() => {
+              localStorage.removeItem("loggedin");
+              setLoggedin(false);
+            }}
+          >
+            Logout
+          </Link>
+          <img
+            src="https://img.icons8.com/ios/100/000000/exit.png"
+            height="25px"
+            width="25px"
+          />
+        </div>
       </div>
     </div>
+  ) : (
+    ""
   );
 }

@@ -1,7 +1,13 @@
-import React from "react";
+import React,{ useEffect } from "react";
+import api from "../api";
 import Layout from "../components/Layout";
 
 export default function Employee() {
+  useEffect(async () => {
+    let employees = await api.getEmployees();
+    console.log(employees);
+  });
+
   return (
     <Layout>
       <div className="flex justify-around">

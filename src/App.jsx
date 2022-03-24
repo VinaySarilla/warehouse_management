@@ -2,16 +2,23 @@ import { useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import Layout from "./components/SideNav";
-import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter,
+  Link,
+  Route,
+  Routes,
+  useLocation,
+} from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import Employee from "./pages/Employee";
 import Product from "./pages/Product";
 import Vendor from "./pages/Vendor";
 import SideNav from "./components/SideNav";
 import Order from "./pages/order";
+import Login from "./pages/Login";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [loggedIn, setLoggedIn] = useState(0);
 
   return (
     <BrowserRouter>
@@ -19,6 +26,7 @@ function App() {
         <SideNav />
         <div className="w-full">
           <Routes>
+            <Route path="/" element={<Login />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/employee" element={<Employee />} />
             <Route path="/order" element={<Order />} />
