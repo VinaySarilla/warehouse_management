@@ -1,7 +1,58 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import api from "../api";
 import Layout from "../components/Layout";
+import handleForm from "../helper";
 
 export default function Order() {
+  const [Order, setOrder] = useState(null);
+  const [Products, setProducts] = useState(null);
+
+  const [form, setForm] = useState({
+    name: "",
+    vendor: "",
+    stock: "",
+    price: "",
+  });
+
+  useEffect(() => {
+    getAllOrder();
+    getAllProducts();
+  }, []);
+
+  const newOrder = () => {
+    console.log(form);
+
+    api.addOrder(form).then((res) => {
+      getAllOrder();
+      alert("Successfully Order Added");
+      setForm({
+        name: "",
+        vendor: "",
+        stock: "",
+        price: "",
+      });
+    });
+  };
+
+  const getAllOrder = async () => {
+    let Order = await api.getOrders();
+    console.log(Order);
+    setOrder(Order);
+  };
+
+  const getAllProducts = async () => {
+    let Products = await api.getProducts();
+    console.log(Products);
+    setProducts(Products);
+  };
+
+  const removeOrder = (Order) => {
+    api.deleteOrder(Order).then((res) => {
+      getAllOrder();
+      alert("Successfully Order Removed");
+    });
+  };
+
   return (
     <Layout>
       <div className="flex justify-around">

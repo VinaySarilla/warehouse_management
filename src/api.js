@@ -9,8 +9,8 @@ const addProduct = (product) => {
     return axios.post(`${URL}/addProduct`, product)
 }
 
-const deleteProduct = (id) => {
-    return axios.post(`${URL}/deleteProduct?id=${id}`)
+const deleteProduct = (product) => {
+    return axios.post(`${URL}/deleteProduct`, product)
 }
 
 
@@ -18,12 +18,12 @@ const getVendors = async () => {
     return axios.get(`${URL}/getVendors`).then(res => res.data)
 }
 
-const addVendors = (product) => {
-    return axios.post(`${URL}/addVendors`, product)
+const addVendor = (product) => {
+    return axios.post(`${URL}/addVendor`, product)
 }
 
-const deleteVendors = (id) => {
-    return axios.post(`${URL}/deleteVendors?id=${id}`)
+const deleteVendor = (id) => {
+    return axios.post(`${URL}/deleteVendor?id=${id}`)
 }
 
 
@@ -55,7 +55,7 @@ const deleteOrder = (id) => {
 const api = {
     getProducts, addProduct, deleteProduct, getOrders,
     getEmployees, getVendors, addEmployee, addOrder,
-    addVendors, deleteOrder, deleteProduct, deleteVendors, deleteEmployee
+    addVendor, deleteOrder, deleteVendor, deleteEmployee
 }
 
 export default api;

@@ -1,7 +1,59 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import api from "../api";
 import Layout from "../components/Layout";
+import handleForm from "../helper";
 
 export default function Product() {
+  const [Product, setProduct] = useState(null);
+  const [Vendors, setVendors] = useState(null);
+
+  const [form, setForm] = useState({
+    name: "",
+    vendor: "",
+    stock: "",
+    price: "",
+  });
+
+  useEffect(() => {
+    getAllProduct();
+    getAllVendors();
+  }, []);
+
+  const newProduct = () => {
+    console.log(form);
+
+    
+    api.addProduct(form).then((res) => {
+      getAllProduct();
+      alert("Successfully Product Added");
+      setForm({
+        name: "",
+        vendor: "",
+        stock: "",
+        price: "",
+      });
+    });
+  };
+
+  const getAllProduct = async () => {
+    let Product = await api.getProducts();
+    console.log(Product);
+    setProduct(Product);
+  };
+
+  const getAllVendors = async () => {
+    let Vendors = await api.getVendors();
+    console.log(Vendors);
+    setVendors(Vendors);
+  };
+
+  const removeProduct = (product) => {
+    api.deleteProduct(product).then((res) => {
+      getAllProduct();
+      alert("Successfully Product Removed");
+    });
+  };
+
   return (
     <Layout>
       <div className="flex justify-around">
@@ -22,70 +74,79 @@ export default function Product() {
           <p className="text-xs">Delivered</p>
         </div>
       </div>
-
+      <div className="flex gap-2 pt-5 pb-2 justify-center">
+        <input
+          type="text"
+          placeholder="name"
+          name="name"
+          className="h-10 outline-none bg-slate-100 text-center rounded-md"
+          onChange={(e) => setForm(handleForm(e, form))}
+        />
+        <input
+          type="text"
+          placeholder="stock"
+          name="stock"
+          className="h-10 outline-none bg-slate-100 text-center rounded-md"
+          onChange={(e) => setForm(handleForm(e, form))}
+        />
+        <input
+          type="text"
+          placeholder="price"
+          name="price"
+          className="h-10 outline-none bg-slate-100 text-center rounded-md"
+          onChange={(e) => setForm(handleForm(e, form))}
+        />
+        <select
+          className="outline-none bg-slate-100 rounded-md px-3"
+          name="vendor"
+          onChange={(e) => {
+            setForm(handleForm(e, form));
+          }}
+        >
+          {Vendors &&
+            Vendors.map((vendor) => {
+              return <option value={vendor.name}>{vendor.name}</option>;
+            })}
+        </select>
+        <button
+          className="bg-blue-600 h-10 rounded-md text-white text-sm text-center px-3"
+          onClick={() => newProduct()}
+        >
+          Add Product
+        </button>
+      </div>
       <table className="w-full text-center my-6 rounded-md bg-slate-50 ">
         <thead>
           <tr>
             <th>Id</th>
             <th>Item</th>
             <th>Vendor</th>
-            <th>Quantity</th>
+            <th>Stock</th>
             <th>Price</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          <tr className="py-3 ">
-            <td>1</td>
-            <td>Marie Biscuit</td>
-            <td>Britannia</td>
-            <td>100</td>
-            <td>10</td>
-            <td>
-              <button className="text-sm bg-red-50 text-red-500 px-2 py-1 rounded-md">
-                Edit
-              </button>
-            </td>
-          </tr>
-          <tr className="py-3 ">
-            <td>2</td>
-            <td>Dairy Milk Chocolate</td>
-            <td>Cadbury</td>
-            <td>10</td>
-            <td>10000</td>
-            <td>
-              <button className="text-sm bg-red-50 text-red-500 px-2 py-1 rounded-md">
-                Edit
-              </button>
-
-            </td>
-          </tr>
-          <tr className="py-3 ">
-            <td>3</td>
-            <td>Coke</td>
-            <td>Coca Cola</td>
-            <td>10</td>
-            <td>10000</td>
-            <td>
-              <button className="text-sm bg-red-50 text-red-500 px-2 py-1 rounded-md">
-                Edit
-              </button>
-
-            </td>
-          </tr>
-          <tr className="py-3 ">
-            <td>4</td>
-            <td>Cream & Onion</td>
-            <td>Lays</td>
-            <td>100</td>
-            <td>10</td>
-            <td>
-              <button className="text-sm bg-red-50 text-red-500 px-2 py-1 rounded-md">
-                Edit
-              </button>
-
-            </td>
-          </tr>
+          {Product &&
+            Product.map((product) => {
+              return (
+                <tr className="py-3 ">
+                  <td>{product.id}</td>
+                  <td>{product.name}</td>
+                  <td>{product.vendor}</td>
+                  <td>{product.stock}</td>
+                  <td>{product.price}</td>
+                  <td>
+                    <button
+                      className="text-sm bg-red-50 text-red-500 px-2 py-1 rounded-md"
+                      onClick={() => removeProduct(product)}
+                    >
+                      Remove
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
         </tbody>
       </table>
     </Layout>
