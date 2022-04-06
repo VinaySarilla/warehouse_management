@@ -14,6 +14,12 @@ export default function Product() {
     price: "",
   });
 
+  const [stats, setStats] = useState({
+    total: 0,
+    free: 0,
+    notfree: 0,
+  });
+
   useEffect(() => {
     getAllProduct();
     getAllVendors();
@@ -22,7 +28,6 @@ export default function Product() {
   const newProduct = () => {
     console.log(form);
 
-    
     api.addProduct(form).then((res) => {
       getAllProduct();
       alert("Successfully Product Added");
@@ -38,6 +43,20 @@ export default function Product() {
   const getAllProduct = async () => {
     let Product = await api.getProducts();
     console.log(Product);
+
+    let free = 0,
+      notfree = 0;
+
+    Product.map((product) => {
+      product.stock > 100 ? (free += 1) : (notfree += 1);
+    });
+
+    setStats({
+      total: Product.length,
+      free,
+      notfree,
+    });
+
     setProduct(Product);
   };
 
@@ -57,21 +76,17 @@ export default function Product() {
   return (
     <Layout>
       <div className="flex justify-around">
+        <div className="h-20 w-36 bg-blue-50 rounded-lg text-blue-500 text-center p-2">
+          <p className="text-4xl">{stats.total}</p>
+          <p className="text-sm">Total</p>
+        </div>
         <div className="h-20 w-36 bg-green-50 rounded-lg text-green-500 text-center p-2">
-          <p className="text-4xl">10</p>
-          <p className="text-xs">Confirmed</p>
+          <p className="text-4xl">{stats.free}</p>
+          <p className="text-sm">Stock {">"} 100</p>
         </div>
         <div className="h-20 w-36 bg-red-50 rounded-lg text-red-500 text-center p-2">
-          <p className="text-4xl">30</p>
-          <p className="text-xs">Packed</p>
-        </div>
-        <div className="h-20 w-36 bg-amber-50 rounded-lg text-amber-500 text-center p-2">
-          <p className="text-4xl">70</p>
-          <p className="text-xs">Shipped</p>
-        </div>
-        <div className="h-20 w-36 bg-blue-50 rounded-lg text-blue-500 text-center p-2">
-          <p className="text-4xl">60</p>
-          <p className="text-xs">Delivered</p>
+          <p className="text-4xl">{stats.notfree}</p>
+          <p className="text-sm">Stock {"<"} 100</p>
         </div>
       </div>
       <div className="flex gap-2 pt-5 pb-2 justify-center">

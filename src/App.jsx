@@ -16,6 +16,7 @@ import Vendor from "./pages/Vendor";
 import SideNav from "./components/SideNav";
 import Order from "./pages/order";
 import Login from "./pages/Login";
+import Vehicle from "./pages/Vehicle";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(0);
@@ -32,6 +33,7 @@ function App() {
             <Route path="/order" element={<Order />} />
             <Route path="/product" element={<Product />} />
             <Route path="/vendor" element={<Vendor />} />
+            <Route path="/vehicles" element={<Vehicle />} />
           </Routes>
         </div>
       </div>

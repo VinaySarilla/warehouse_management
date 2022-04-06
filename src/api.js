@@ -13,7 +13,6 @@ const deleteProduct = (product) => {
     return axios.post(`${URL}/deleteProduct`, product)
 }
 
-
 const getVendors = async () => {
     return axios.get(`${URL}/getVendors`).then(res => res.data)
 }
@@ -25,7 +24,6 @@ const addVendor = (product) => {
 const deleteVendor = (id) => {
     return axios.post(`${URL}/deleteVendor?id=${id}`)
 }
-
 
 const getEmployees = async () => {
     return axios.get(`${URL}/getEmployees`).then(res => res.data)
@@ -52,10 +50,23 @@ const deleteOrder = (id) => {
     return axios.post(`${URL}/deleteOrder?id=${id}`)
 }
 
+const deleteVehicle = (id) => {
+    return axios.post(`${URL}/deleteVehicle?id=${id}`)
+}
+
+const getVehicles = async () => {
+    return axios.get(`${URL}/getVehicles`).then(res => res.data)
+}
+
+const addVehicle = (product) => {
+    return axios.post(`${URL}/addVehicle`, product)
+}
+
 const api = {
     getProducts, addProduct, deleteProduct, getOrders,
     getEmployees, getVendors, addEmployee, addOrder,
-    addVendor, deleteOrder, deleteVendor, deleteEmployee
+    addVendor, deleteOrder, deleteVendor, deleteEmployee,
+    addVehicle, getVehicles, deleteVehicle
 }
 
 export default api;

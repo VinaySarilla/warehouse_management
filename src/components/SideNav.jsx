@@ -74,6 +74,21 @@ export default function SideNav({ children }) {
 
         <div
           className={`flex justify-between p-3 text-center rounded-md ${
+            location.pathname.includes("vehicles")
+              ? `bg-blue-700 text-white`
+              : `text-slate-700 bg-blue-100`
+          }`}
+        >
+          <Link to="/vehicles">Vehicle</Link>
+          <img
+            src="https://img.icons8.com/ios-glyphs/90/000000/car--v1.png"
+            height="25px"
+            width="25px"
+          />
+        </div>
+
+        <div
+          className={`flex justify-between p-3 text-center rounded-md ${
             location.pathname.includes("product")
               ? `bg-blue-700 text-white`
               : `text-slate-700 bg-blue-100`

@@ -10,8 +10,10 @@ export default function Order() {
   const [form, setForm] = useState({
     name: "",
     vendor: "",
-    stock: "",
-    price: "",
+    quantity: "",
+    value: 0,
+    shippingdetails: "",
+    shipped: false,
   });
 
   useEffect(() => {
@@ -29,14 +31,36 @@ export default function Order() {
         name: "",
         vendor: "",
         stock: "",
-        price: "",
+        value: 0,
+        shippingdetails: "",
+        shipped: false,
       });
     });
   };
 
+  const [stats, setStats] = useState({
+    total: 0,
+    free: 0,
+    notfree: 0,
+  });
+
   const getAllOrder = async () => {
     let Order = await api.getOrders();
     console.log(Order);
+
+    let free = 0,
+      notfree = 0;
+
+    Order.map((order) => {
+      order.shipped ? (free += 1) : (notfree += 1);
+    });
+
+    setStats({
+      total: Order.length,
+      free,
+      notfree,
+    });
+
     setOrder(Order);
   };
 
@@ -53,98 +77,135 @@ export default function Order() {
     });
   };
 
+  const handleOrder = (e) => {
+    setForm(handleForm(e, form));
+
+    Products.map((product) => {
+      if (e.target.value === product.name) {
+        setForm({
+          ...form,
+          product: e.target.value,
+          vendor: product.vendor,
+          value: form.quantity * product.price,
+        });
+      }
+    });
+  };
+
+  const update = (data) => {
+    let tempData = {
+      ...data,
+      shipped: !data.shipped,
+    };
+    api.addOrder(tempData).then((res) => {
+      getAllOrder();
+    });
+  };
+
   return (
     <Layout>
       <div className="flex justify-around">
+        <div className="h-20 w-36 bg-blue-50 rounded-lg text-blue-500 text-center p-2">
+          <p className="text-4xl">{stats.total}</p>
+          <p className="text-sm">Total</p>
+        </div>
         <div className="h-20 w-36 bg-green-50 rounded-lg text-green-500 text-center p-2">
-          <p className="text-4xl">10</p>
-          <p className="text-sm">Conf irmed</p>
-        </div>
-        <div className="h-20 w-36 bg-red-50 rounded-lg text-red-500 text-center p-2">
-          <p className="text-4xl">30</p>
-          <p className="text-sm">Packed</p>
-        </div>
-        <div className="h-20 w-36 bg-amber-50 rounded-lg text-amber-500 text-center p-2">
-          <p className="text-4xl">70</p>
+          <p className="text-4xl">{stats.free}</p>
           <p className="text-sm">Shipped</p>
         </div>
-        <div className="h-20 w-36 bg-blue-50 rounded-lg text-blue-500 text-center p-2">
-          <p className="text-4xl">60</p>
-          <p className="text-sm">Delivered</p>
+        <div className="h-20 w-36 bg-red-50 rounded-lg text-red-500 text-center p-2">
+          <p className="text-4xl">{stats.notfree}</p>
+          <p className="text-sm">Not Shipped</p>
         </div>
       </div>
+
+      <div className="flex gap-2 pt-5 pb-2 justify-center">
+        <input
+          type="text"
+          placeholder="quantity"
+          name="quantity"
+          className="h-10 outline-none bg-slate-100 text-center rounded-md"
+          onChange={(e) => setForm(handleForm(e, form))}
+        />
+        <select
+          className="outline-none bg-slate-100 rounded-md px-3"
+          name="product"
+          onChange={(e) => {
+            handleOrder(e);
+          }}
+        >
+          {Products &&
+            Products.map((product) => {
+              return <option value={product.name}>{product.name}</option>;
+            })}
+        </select>
+        <input
+          type="text"
+          placeholder="total"
+          name="value"
+          value={form.value}
+          disabled
+          className="h-10 outline-none bg-slate-100 text-center rounded-md"
+        />
+
+        <input
+          type="text"
+          placeholder="shippingdetails"
+          name="shippingdetails"
+          className="h-10 outline-none bg-slate-100 text-center rounded-md"
+          onChange={(e) => setForm(handleForm(e, form))}
+        />
+
+        <button
+          className="bg-blue-600 h-10 rounded-md text-white text-sm text-center px-3"
+          onClick={() => newOrder()}
+        >
+          Add Order
+        </button>
+      </div>
+
       <table className="w-full text-center my-6 rounded-md bg-slate-50 ">
         <thead>
           <tr>
             <th>Id</th>
             <th>Item</th>
-            <th>Vendor</th>
             <th>Quantity</th>
             <th>Value</th>
+            <th>Address</th>
+            <th>Shipped</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          <tr className="py-3 ">
-            <td>1</td>
-            <td>Marie Biscuit</td>
-            <td>Britannia</td>
-            <td>100</td>
-            <td>1000</td>
-            <td>
-              <select className="outline-none text-sm">
-                <option value="Confirmed">Confirmed</option>
-                <option value="Packed">Packed</option>
-                <option value="Shipped">Shipped</option>
-                <option value="Delivered">Delivered</option>
-              </select>
-            </td>
-          </tr>
-          <tr className="py-3 ">
-            <td>2</td>
-            <td>Dairy Milk Chocolate</td>
-            <td>Cadbury</td>
-            <td>1000</td>
-            <td>10000</td>
-            <td>
-              <select className="outline-none text-sm">
-                <option value="Confirmed">Confirmed</option>
-                <option value="Packed">Packed</option>
-                <option value="Shipped">Shipped</option>
-                <option value="Delivered">Delivered</option>
-              </select>
-            </td>
-          </tr>
-          <tr className="py-3 ">
-            <td>3</td>
-            <td>Coke</td>
-            <td>Coca Cola</td>
-            <td>1000</td>
-            <td>10000</td>
-            <td>
-              <select className="outline-none text-sm">
-                <option value="Confirmed">Confirmed</option>
-                <option value="Packed">Packed</option>
-                <option value="Shipped">Shipped</option>
-                <option value="Delivered">Delivered</option>
-              </select>
-            </td>
-          </tr>
-          <tr className="py-3 ">
-            <td>4</td>
-            <td>Cream & Onion</td>
-            <td>Lays</td>
-            <td>100</td>
-            <td>1000</td>
-            <td>
-              <select className="outline-none text-sm">
-                <option value="Confirmed">Confirmed</option>
-                <option value="Packed">Packed</option>
-                <option value="Shipped">Shipped</option>
-                <option value="Delivered">Delivered</option>
-              </select>
-            </td>
-          </tr>
+          {Order &&
+            Order.map((order) => {
+              return (
+                <tr>
+                  <td>{order.id}</td>
+                  <td>{order.product}</td>
+                  <td>{order.quantity}</td>
+                  <td>{order.value}</td>
+                  <td>{order.shippingdetails}</td>
+                  <td>
+                    {order.shipped ? "Yes" : "No"}
+                    <button
+                      onClick={() => update(order)}
+                      className="text-sm bg-green-300 p-1 rounded-md m-1"
+                    >
+                      Change
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      className="text-sm bg-red-50 text-red-500 px-2 py-1 rounded-md"
+                      onClick={() => removeOrder(order.id)}
+                    >
+                      Remove
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
         </tbody>
       </table>
     </Layout>
