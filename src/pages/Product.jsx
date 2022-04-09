@@ -133,19 +133,19 @@ export default function Product() {
       <table className="w-full text-center my-6 rounded-md bg-slate-50 ">
         <thead>
           <tr>
-            <th>Id</th>
-            <th>Item</th>
-            <th>Vendor</th>
-            <th>Stock</th>
-            <th>Price</th>
-            <th>Actions</th>
+            <th className="p-3 m-1 bg-slate-200">Id</th>
+            <th className="p-3 m-1 bg-slate-200">Item</th>
+            <th className="p-3 m-1 bg-slate-200">Vendor</th>
+            <th className="p-3 m-1 bg-slate-200">Stock</th>
+            <th className="p-3 m-1 bg-slate-200">Price</th>
+            <th className="p-3 m-1 bg-slate-200">Actions</th>
           </tr>
         </thead>
         <tbody>
           {Product &&
             Product.map((product) => {
               return (
-                <tr className="py-3 ">
+                <tr className="py-3">
                   <td>{product.id}</td>
                   <td>{product.name}</td>
                   <td>{product.vendor}</td>

@@ -167,13 +167,13 @@ export default function Order() {
       <table className="w-full text-center my-6 rounded-md bg-slate-50 ">
         <thead>
           <tr>
-            <th>Id</th>
-            <th>Item</th>
-            <th>Quantity</th>
-            <th>Value</th>
-            <th>Address</th>
-            <th>Shipped</th>
-            <th>Actions</th>
+            <th className="p-3 m-1 bg-slate-200">Id</th>
+            <th className="p-3 m-1 bg-slate-200">Item</th>
+            <th className="p-3 m-1 bg-slate-200">Quantity</th>
+            <th className="p-3 m-1 bg-slate-200">Value</th>
+            <th className="p-3 m-1 bg-slate-200">Address</th>
+            <th className="p-3 m-1 bg-slate-200">Shipped</th>
+            <th className="p-3 m-1 bg-slate-200">Actions</th>
           </tr>
         </thead>
         <tbody>

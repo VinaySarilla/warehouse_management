@@ -114,11 +114,11 @@ export default function Employee() {
       <table className="w-full text-center my-2 rounded-md bg-slate-50 ">
         <thead>
           <tr className="">
-            <th>Id</th>
-            <th>Name</th>
-            <th>Role</th>
-            <th>Present</th>
-            <th>Actions</th>
+            <th className="p-3 m-1 bg-slate-200">Id</th>
+            <th className="p-3 m-1 bg-slate-200">Name</th>
+            <th className="p-3 m-1 bg-slate-200">Role</th>
+            <th className="p-3 m-1 bg-slate-200">Present</th>
+            <th className="p-3 m-1 bg-slate-200">Actions</th>
           </tr>
         </thead>
         <tbody>

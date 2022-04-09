@@ -17,15 +17,17 @@ import SideNav from "./components/SideNav";
 import Order from "./pages/order";
 import Login from "./pages/Login";
 import Vehicle from "./pages/Vehicle";
+import Appbar from "./components/Appbar";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(0);
 
   return (
     <BrowserRouter>
-      <div className="flex h-full">
+      <div className="flex h-full font-poppins">
         <SideNav />
         <div className="w-full">
+          <Appbar/>
           <Routes>
             <Route path="/" element={<Login />} />
             <Route path="/dashboard" element={<Dashboard />} />

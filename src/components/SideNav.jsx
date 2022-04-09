@@ -12,13 +12,13 @@ export default function SideNav({ children }) {
   }, []);
 
   return loggedin ? (
-    <div className="w-48 bg-blue-50">
-      <div className="flex flex-col min-h-screen gap-4 mx-3 my-10">
+    <div className="w-48 ring-1 ring-slate-200">
+      <div className="flex flex-col min-h-screen my-10">
         <div
-          className={`flex justify-between p-3 text-center rounded-md ${
+          className={`flex justify-between p-5 text-center  ${
             location.pathname.includes("dashboard")
-              ? `bg-blue-700 text-white`
-              : `text-slate-700 bg-blue-100`
+              ? `bg-blue-500 text-white`
+              : `text-slate-700 bg-white ring-1 ring-slate-200`
           }`}
         >
           <Link to="/dashboard">Dashboard</Link>
@@ -29,10 +29,10 @@ export default function SideNav({ children }) {
           />
         </div>
         <div
-          className={`flex justify-between p-3 text-center rounded-md ${
+          className={`flex justify-between p-5 text-center  ${
             location.pathname.includes("vendor")
-              ? `bg-blue-700 text-white`
-              : `text-slate-700 bg-blue-100`
+              ? `bg-blue-500 text-white`
+              : `text-slate-700 bg-white ring-1 ring-slate-200`
           }`}
         >
           <Link to="/vendor">Vendor</Link>
@@ -43,10 +43,10 @@ export default function SideNav({ children }) {
           />
         </div>
         <div
-          className={`flex justify-between p-3 text-center rounded-md ${
+          className={`flex justify-between p-5 text-center  ${
             location.pathname.includes("order")
-              ? `bg-blue-700 text-white`
-              : `text-slate-700 bg-blue-100`
+              ? `bg-blue-500 text-white`
+              : `text-slate-700 bg-white ring-1 ring-slate-200`
           }`}
         >
           <Link to="/order">Order</Link>
@@ -58,10 +58,10 @@ export default function SideNav({ children }) {
         </div>
 
         <div
-          className={`flex justify-between p-3 text-center rounded-md ${
+          className={`flex justify-between p-5 text-center  ${
             location.pathname.includes("employee")
-              ? `bg-blue-700 text-white`
-              : `text-slate-700 bg-blue-100`
+              ? `bg-blue-500 text-white`
+              : `text-slate-700 bg-white ring-1 ring-slate-200`
           }`}
         >
           <Link to="/employee">Employee</Link>
@@ -73,10 +73,10 @@ export default function SideNav({ children }) {
         </div>
 
         <div
-          className={`flex justify-between p-3 text-center rounded-md ${
+          className={`flex justify-between p-5 text-center  ${
             location.pathname.includes("vehicles")
-              ? `bg-blue-700 text-white`
-              : `text-slate-700 bg-blue-100`
+              ? `bg-blue-500 text-white`
+              : `text-slate-700 bg-white ring-1 ring-slate-200`
           }`}
         >
           <Link to="/vehicles">Vehicle</Link>
@@ -88,10 +88,10 @@ export default function SideNav({ children }) {
         </div>
 
         <div
-          className={`flex justify-between p-3 text-center rounded-md ${
+          className={`flex justify-between p-5 text-center  ${
             location.pathname.includes("product")
-              ? `bg-blue-700 text-white`
-              : `text-slate-700 bg-blue-100`
+              ? `bg-blue-500 text-white`
+              : `text-slate-700 bg-white ring-1 ring-slate-200`
           }`}
         >
           <Link to="/product">Product</Link>
@@ -103,10 +103,10 @@ export default function SideNav({ children }) {
         </div>
 
         <div
-          className={`flex justify-between p-3 text-center rounded-md ${
+          className={`flex justify-between p-5 text-center  ${
             location.pathname.includes("logout")
-              ? `bg-blue-700 text-white`
-              : `text-slate-700 bg-blue-100`
+              ? `bg-blue-500 text-white`
+              : `text-slate-700 bg-white ring-1 ring-slate-200`
           }`}
         >
           <Link

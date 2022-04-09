@@ -115,11 +115,11 @@ export default function Vehicle() {
       <table className="w-full text-center my-2 rounded-md bg-slate-50 ">
         <thead>
           <tr className="">
-            <th>Id</th>
-            <th>Name</th>
-            <th>Number</th>
-            <th>Available</th>
-            <th>Actions</th>
+            <th className="p-3 m-1 bg-slate-200">Id</th>
+            <th className="p-3 m-1 bg-slate-200">Name</th>
+            <th className="p-3 m-1 bg-slate-200">Number</th>
+            <th className="p-3 m-1 bg-slate-200">Available</th>
+            <th className="p-3 m-1 bg-slate-200">Actions</th>
           </tr>
         </thead>
         <tbody>

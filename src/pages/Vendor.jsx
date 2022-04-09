@@ -103,11 +103,11 @@ export default function Vendor() {
       <table className="w-full text-center my-6 rounded-md bg-slate-50 ">
         <thead>
           <tr className="">
-            <th>Id</th>
-            <th>Name</th>
-            <th>Items</th>
-            <th>Status</th>
-            <th>Actions</th>
+            <th className="p-3 m-1 bg-slate-200">Id</th>
+            <th className="p-3 m-1 bg-slate-200">Name</th>
+            <th className="p-3 m-1 bg-slate-200">Items</th>
+            <th className="p-3 m-1 bg-slate-200">Status</th>
+            <th className="p-3 m-1 bg-slate-200">Actions</th>
           </tr>
         </thead>
         <tbody>

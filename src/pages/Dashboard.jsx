@@ -28,17 +28,17 @@ export default function Dashboard() {
         unshipped.push(order);
       }
 
-      if(order.value > 100){
+      if (order.value > 100) {
         products.push({
-          id:order.id,
-          product:order.product,
-          value:order.value
-        })
+          id: order.id,
+          product: order.product,
+          value: order.value,
+        });
       }
     });
 
-    setOrders(unshipped)
-    setProducts(products)
+    setOrders(unshipped);
+    setProducts(products);
 
     setStats({
       employees: employees.length,
@@ -79,13 +79,13 @@ export default function Dashboard() {
         <p>High Value Orders</p>
       </div>
       <div className="flex gap-2">
-        <table className="w-full text-center my-6 rounded-md bg-slate-50 ">
+        <table className="w-full text-center my-6 border-collapse rounded-md bg-slate-50">
           <thead>
             <tr>
-              <th>Id</th>
-              <th>Item</th>
-              <th>Quantity</th>
-              <th>Value</th>
+              <th className="p-3 m-1 bg-slate-200">Id</th>
+              <th className="p-3 m-1 bg-slate-200">Item</th>
+              <th className="p-3 m-1 bg-slate-200">Quantity</th>
+              <th className="p-3 m-1 bg-slate-200">Value</th>
             </tr>
           </thead>
           <tbody>
@@ -103,12 +103,12 @@ export default function Dashboard() {
           </tbody>
         </table>
 
-        <table className="w-full text-center my-6 rounded-md bg-slate-50 ">
+        <table className="w-full text-center my-6 border-collapse rounded-md bg-slate-50">
           <thead>
             <tr>
-              <th>Id</th>
-              <th>Item</th>
-              <th>Value</th>
+              <th className="p-3 m-1 bg-slate-200">Id</th>
+              <th className="p-3 m-1 bg-slate-200">Item</th>
+              <th className="p-3 m-1 bg-slate-200">Value</th>
             </tr>
           </thead>
           <tbody>
@@ -116,9 +116,9 @@ export default function Dashboard() {
               topProducts.map((order) => {
                 return (
                   <tr>
-                    <td>{order.id}</td>
-                    <td>{order.product}</td>
-                    <td>{order.value}</td>
+                    <td className="">{order.id}</td>
+                    <td className="">{order.product}</td>
+                    <td className="">{order.value}</td>
                   </tr>
                 );
               })}
