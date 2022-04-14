@@ -93,6 +93,7 @@ export default function SideNav({ children }) {
               ? `bg-blue-500 text-white`
               : `text-slate-700 bg-white ring-1 ring-slate-200`
           }`}
+          data-testid="product-btn"
         >
           <Link to="/product">Product</Link>
           <img

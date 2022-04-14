@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 export default function Login() {
-  const navigate = useNavigate();
 
   const [details, setDetails] = useState({
     id: null,
@@ -33,6 +31,7 @@ export default function Login() {
           className="h-10 outline-none bg-blue-100 text-center rounded-md"
         />
         <button
+          data-testid="login-test"
           className="bg-blue-600 h-10 rounded-md text-white text-sm text-center"
           onClick={() => login()}
         >

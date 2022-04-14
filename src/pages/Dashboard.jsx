@@ -1,13 +1,40 @@
 import Layout from "../components/Layout";
 import { useState, useEffect } from "react";
 import api from "../api";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+  PointElement,
+  LineElement,
+  ArcElement,
+} from "chart.js";
+
+import { Bar, Pie } from "react-chartjs-2";
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+  ArcElement,
+  PointElement,
+  LineElement
+);
+
 export default function Dashboard() {
   const [stats, setStats] = useState({
-    employees: 0,
-    orders: 0,
-    vehicles: 0,
-    vendors: 0,
-    sales: 0,
+    employees: [],
+    orders: [],
+    vehicles: [],
+    vendors: [],
+    sales: [],
   });
 
   const [unshippedOrders, setOrders] = useState(null);
@@ -22,6 +49,7 @@ export default function Dashboard() {
     let sales = 0;
     let unshipped = [];
     let products = [];
+
     orders.map((order) => {
       sales += order.value;
       if (!order.shipped) {
@@ -41,10 +69,10 @@ export default function Dashboard() {
     setProducts(products);
 
     setStats({
-      employees: employees.length,
-      orders: orders.length,
-      vehicles: vehicles.length,
-      vendors: vendors.length,
+      employees: employees,
+      orders: orders,
+      vehicles: vehicles,
+      vendors: vendors,
       sales,
     });
   }, []);
@@ -54,22 +82,24 @@ export default function Dashboard() {
       <div className="flex justify-around">
         <div className="h-20 w-36 bg-green-50 rounded-lg text-green-500 text-center p-2">
           <p className="text-4xl">{stats.sales}$</p>
-          <p className="text-sm">Sales</p>
+          <p className="text-sm" data-testid="sales-num">
+            Sales
+          </p>
         </div>
         <div className="h-20 w-36 bg-green-50 rounded-lg text-green-500 text-center p-2">
-          <p className="text-4xl">{stats.orders}</p>
+          <p className="text-4xl">{stats.orders.length}</p>
           <p className="text-sm">Orders</p>
         </div>
         <div className="h-20 w-36 bg-green-50 rounded-lg text-green-500 text-center p-2">
-          <p className="text-4xl">{stats.vendors}</p>
+          <p className="text-4xl">{stats.vendors.length}</p>
           <p className="text-sm">Vendors</p>
         </div>
         <div className="h-20 w-36 bg-green-50 rounded-lg text-green-500 text-center p-2">
-          <p className="text-4xl">{stats.employees}</p>
+          <p className="text-4xl">{stats.employees.length}</p>
           <p className="text-sm">Employees</p>
         </div>
         <div className="h-20 w-36 bg-green-50 rounded-lg text-green-500 text-center p-2">
-          <p className="text-4xl">{stats.vehicles}</p>
+          <p className="text-4xl">{stats.vehicles.length}</p>
           <p className="text-sm">Vehicles</p>
         </div>
       </div>
@@ -124,6 +154,139 @@ export default function Dashboard() {
               })}
           </tbody>
         </table>
+      </div>
+      <div className="flex">
+        <div className="flex w-[50%]">
+          <Bar
+            datasetIdKey="id"
+            data={{
+              labels: ["Employees"],
+              datasets: [
+                {
+                  id: 1,
+                  label: "Present Employees",
+                  data: [
+                    stats.employees.filter((vendor) => vendor.present === true)
+                      .length,
+                  ],
+                  backgroundColor: "rgba(255, 99, 132, 0.5)",
+                },
+                {
+                  id: 2,
+                  label: "Absent Employees",
+                  data: [
+                    stats.employees.filter((vendor) => vendor.present === false)
+                      .length,
+                  ],
+                  backgroundColor: "rgba(53, 162, 235, 0.5)",
+                },
+              ],
+            }}
+          />
+        </div>
+        <div className="flex w-[50%]">
+          <Bar
+            datasetIdKey="id"
+            data={{
+              labels: ["April"],
+              datasets: [
+                {
+                  id: 1,
+                  label: "Active Vendors",
+                  data: [
+                    stats.vendors.filter((vendor) => vendor.status === true)
+                      .length,
+                  ],
+                  backgroundColor: "rgba(255, 99, 132, 0.5)",
+                },
+                {
+                  id: 2,
+                  label: "Inctive Vendors",
+                  data: [
+                    stats.vendors.filter((vendor) => vendor.status === false)
+                      .length,
+                  ],
+                  backgroundColor: "rgba(53, 162, 235, 0.5)",
+                },
+              ],
+            }}
+          />
+        </div>
+      </div>
+      <div className="flex">
+        <div className="flex w-[50%] px-6">
+          <Pie
+            datasetIdKey="id1"
+            data={{
+              labels: ["Shipped", "Unshipped"],
+              datasets: [
+                {
+                  id: 1,
+                  data: [
+                    stats.orders.filter((order) => order.shipped === true)
+                      .length,
+                    stats.orders.filter((order) => order.shipped === false)
+                      .length,
+                  ],
+                  backgroundColor: [
+                    "rgba(255, 99, 132, 0.2)",
+                    "rgba(54, 162, 235, 0.2)",
+                    "rgba(255, 206, 86, 0.2)",
+                    "rgba(75, 192, 192, 0.2)",
+                    "rgba(153, 102, 255, 0.2)",
+                    "rgba(255, 159, 64, 0.2)",
+                  ],
+                  borderColor: [
+                    "rgba(255, 99, 132, 1)",
+                    "rgba(54, 162, 235, 1)",
+                    "rgba(255, 206, 86, 1)",
+                    "rgba(75, 192, 192, 1)",
+                    "rgba(153, 102, 255, 1)",
+                    "rgba(255, 159, 64, 1)",
+                  ],
+                },
+                {
+                  id: 2,
+                  label: "Inctive Vendors",
+                  data: [
+                    stats.vendors.filter((vendor) => vendor.status === false)
+                      .length,
+                  ],
+                  backgroundColor: "rgba(53, 162, 235, 0.5)",
+                },
+              ],
+            }}
+          />
+        </div>
+
+        <div className="flex w-[50%]">
+          <Bar
+            datasetIdKey="id"
+            data={{
+              labels: ["Vehicles"],
+              datasets: [
+                {
+                  id: 1,
+                  label: "Free Vehicles",
+                  data: [
+                    stats.vehicles.filter((vendor) => vendor.free === true)
+                      .length,
+                  ],
+                  backgroundColor: "rgba(255, 99, 132, 0.5)",
+                },
+                {
+                  id: 2,
+                  label: "Occupied Vehicles",
+                  data: [
+                    stats.vehicles.filter((vendor) => vendor.free === false)
+                      .length,
+                  ],
+                  backgroundColor: "rgba(53, 162, 235, 0.5)",
+                },
+              ],
+            }}
+          />
+        </div>
       </div>
     </Layout>
   );

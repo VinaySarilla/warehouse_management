@@ -7,5 +7,5 @@ export default function Appbar() {
   useEffect(() => {
 
   }, []);
-  return <div className="p-5 text-3xl text-center capitalize">{location.pathname.split("/")[1]}</div>;
+  return <div className="p-5 text-3xl text-center capitalize" role="application">{location.pathname.split("/")[1]}</div>;
 }

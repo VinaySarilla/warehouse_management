@@ -79,7 +79,7 @@ export default function Employee() {
         </div>
         <div className="h-20 w-36 bg-green-50 rounded-lg text-green-500 text-center p-2">
           <p className="text-4xl">{stats.free}</p>
-          <p className="text-sm">Present</p>
+          <p className="text-sm" data-testid="present-card">Present</p>
         </div>
         <div className="h-20 w-36 bg-red-50 rounded-lg text-red-500 text-center p-2">
           <p className="text-4xl">{stats.notfree}</p>

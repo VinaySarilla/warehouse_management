@@ -27,7 +27,7 @@ function App() {
       <div className="flex h-full font-poppins">
         <SideNav />
         <div className="w-full">
-          <Appbar/>
+          <Appbar />
           <Routes>
             <Route path="/" element={<Login />} />
             <Route path="/dashboard" element={<Dashboard />} />
