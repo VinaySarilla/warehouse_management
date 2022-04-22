@@ -14,7 +14,7 @@ import Employee from "./pages/Employee";
 import Product from "./pages/Product";
 import Vendor from "./pages/Vendor";
 import SideNav from "./components/SideNav";
-import Order from "./pages/order";
+import Order from "./pages/Order";
 import Login from "./pages/Login";
 import Vehicle from "./pages/Vehicle";
 import Appbar from "./components/Appbar";
